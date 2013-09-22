@@ -3,7 +3,7 @@
 
 class ListItem {
     public:
-        void* content;
+        void* data;
         ListItem* next;
         ListItem* prev;
         ListItem();

@@ -8,7 +8,7 @@ void dumpList(LinkedList* list) {
     ListItem * item;
     cout << "dumping total items: " << list->length() << endl;
     while ((item = list->nextItem()) != NULL) {
-        cout << "item " << *((int *) item->content) << endl;
+        cout << "item " << *((int *) item->data) << endl;
     }
 }
 

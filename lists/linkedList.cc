@@ -4,7 +4,7 @@
 using namespace std;
 
 ListItem::ListItem() {
-    content = NULL;
+    data = NULL;
     next = NULL;
     prev = NULL;
 }
@@ -23,7 +23,7 @@ LinkedList::~LinkedList() {
 void LinkedList::add(void * data) {
     ListItem* item = new ListItem();
 
-    item->content = data;
+    item->data = data;
     if (first == NULL) {
         first = item;
     }
@@ -72,7 +72,7 @@ void LinkedList::remove(ListItem* item) {
 void LinkedList::remove(void* data) {
     ListItem* cr = first;
     while (cr != NULL) {
-        if (cr->content == data) {
+        if (cr->data == data) {
             remove(cr);
             break;
         }
