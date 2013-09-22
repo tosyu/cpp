@@ -1,10 +1,12 @@
 #ifndef _LINKEDLIST_H_
 #define _LINKEDLIST_H_
 
-struct ListItem {
-    void * content;
-    ListItem * next;
-    ListItem * prev;
+class ListItem {
+    public:
+        void* content;
+        ListItem* next;
+        ListItem* prev;
+        ListItem();
 };
 
 class LinkedList {
@@ -18,6 +20,7 @@ class LinkedList {
         ~LinkedList();
         void add(void *);
         void remove(ListItem *);
+        void remove(void *);
         void clear(void);
         ListItem * nextItem(void);
         ListItem * prevItem(void);

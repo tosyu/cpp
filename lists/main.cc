@@ -4,18 +4,37 @@
 
 using namespace std;
 
-int main(int argc, char **argv) {
-    LinkedList list = LinkedList();
+void dumpList(LinkedList* list) {
     ListItem * item;
+    cout << "dumping total items: " << list->length() << endl;
+    while ((item = list->nextItem()) != NULL) {
+        cout << "item " << *((int *) item->content) << endl;
+    }
+}
+
+int main(int argc, char **argv) {
+    LinkedList* list = new LinkedList();
     int i, a = 5, b = 6, c = 7;
 
-    list.add(&a);
-    list.add(&b);
-    list.add(&c);
+    list->add(&a);
+    list->add(&b);
+    list->add(&c);
 
-    while ((item = list.nextItem()) != NULL) {
-        cout << "item " << item->content << endl;
-    }
+    list->rewind();
+
+    dumpList(list);
+
+    list->remove(&b);
+    list->rewind();
+
+    dumpList(list);
+
+    list->clear();
+    list->rewind();
+
+    dumpList(list);
+
+    delete list;
 
     return  0;
 }
