@@ -11,8 +11,8 @@ ListItem::ListItem() {
 
 LinkedList::LinkedList() {
     current = NULL;
-    last = NULL;
-    first = NULL;
+    tail = NULL;
+    head = NULL;
     items = 0;
 }
 
@@ -24,25 +24,25 @@ void LinkedList::add(void * data) {
     ListItem* item = new ListItem();
 
     item->data = data;
-    if (first == NULL) {
-        first = item;
+    if (head == NULL) {
+        head = item;
     }
 
     if (current == NULL) {
         current = item;
     }
 
-    if (last != NULL) {
-        last->next = item;
-        item->prev = last;
+    if (tail != NULL) {
+        tail->next = item;
+        item->prev = tail;
     }
     
-    last = item;
+    tail = item;
     ++items;
 }
 
 void LinkedList::remove(ListItem* item) {
-    ListItem* cr = first;
+    ListItem* cr = head;
     while (cr != NULL) {
         if (cr == item) {
             if (cr->prev != NULL) {
@@ -50,7 +50,7 @@ void LinkedList::remove(ListItem* item) {
                     cr->next->prev = cr->prev;
                 }
             } else {
-                first = cr->next;
+                head = cr->next;
             }
 
             if (cr->next != NULL) {
@@ -58,7 +58,7 @@ void LinkedList::remove(ListItem* item) {
                     cr->prev->next = cr->next;
                 }
             } else {
-                last = cr->prev;
+                tail = cr->prev;
             }
 
             --items;
@@ -70,7 +70,7 @@ void LinkedList::remove(ListItem* item) {
 }
 
 void LinkedList::remove(void* data) {
-    ListItem* cr = first;
+    ListItem* cr = head;
     while (cr != NULL) {
         if (cr->data == data) {
             remove(cr);
@@ -81,7 +81,7 @@ void LinkedList::remove(void* data) {
 }
 
 void LinkedList::clear() {
-    ListItem* cr = first;
+    ListItem* cr = head;
     ListItem* tmp;
     while (cr != NULL) {
         tmp = cr->next;
@@ -89,8 +89,8 @@ void LinkedList::clear() {
         cr = tmp;
     }
     current = NULL;
-    first = NULL;
-    last = NULL;
+    head = NULL;
+    tail = NULL;
     items = 0;
 }
 
@@ -99,7 +99,7 @@ int LinkedList::length() {
 }
 
 void LinkedList::rewind() {
-    current = first;
+    current = head;
 }
 
 ListItem * LinkedList::nextItem() {

@@ -12,8 +12,8 @@ class ListItem {
 class LinkedList {
     private:
         ListItem * current;
-        ListItem * first;
-        ListItem * last;
+        ListItem * head;
+        ListItem * tail;
         int items;
     public:
         LinkedList();
