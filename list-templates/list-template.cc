@@ -29,8 +29,8 @@ LinkedList<T>::~LinkedList() {
 }
 
 template <class T>
-Node<T>* LinkedList<T>::add(T* data) {
-    Node<T>* node = new Node<T>(data);
+Node<T>* LinkedList<T>::add(T &data) {
+    Node<T>* node = new Node<T>(&data);
 
     if (head == NULL) {
         head = node;
@@ -51,10 +51,10 @@ Node<T>* LinkedList<T>::add(T* data) {
 }
 
 template <class T>
-bool LinkedList<T>::remove(T* data) {
+bool LinkedList<T>::remove(T &data) {
     Node<T>* node = head;
     while (node != NULL) {
-        if (*node->data == *data) {
+        if (*node->data == data) {
             if (node->prev != NULL) {
                 if (node->next != NULL) {
                     node->next->prev = node->prev;
@@ -132,6 +132,7 @@ void LinkedList<T>::clear() {
     items = 0;
 }
 
-//excplicit
+//excplicit since the implementation
+//of the template is not in header file
 template class Node<int>;
 template class LinkedList<int>;

@@ -22,8 +22,8 @@ class LinkedList {
 	public:
 		LinkedList();
 		~LinkedList();
-		Node<T>* add(T*);
-		bool remove(T*);
+		Node<T>* add(T&);
+		bool remove(T&);
 		void rewind(void);
 		T next(void);
 		T prev(void);
