@@ -5,18 +5,35 @@ using namespace std;
 
 int main() {
 
-    DynamicArray<int>* a = new DynamicArray<int>();
+    int start[3] = {1, 2, 3};// = DynamicArray<int>();
+    DynamicArray<int> arr = DynamicArray<int>(start, 3);
+
     int i;
 
-    (*a)[0] = 1;
-    (*a)[1] = 2;
-    (*a)[2] = 3;
-   
-    for (i = 0; i < a->length(); ++i) {
-        //cout << "item " << i << " :" << (string) a[i] << endl;
+    for (i = 0; i < 3; ++i) {
+        cout << "index " << i << " value " << arr[i] << endl;
+    }
+
+    cout << "change the array" << endl;
+
+    for (i = 0; i < 10; ++i) {
+        arr[i] = (i + 1);
+        cout << "changing index " << i << ", length is: " << arr.length() << endl;
+    }
+
+    for (i = 0; i < 3; ++i) {
+        cout << "index " << i << " value " << arr[i] << endl;
+    }
+
+    cout << "remove indexes 0 and 4" << endl;
+    arr.remove(0);
+    arr.remove(4);
+
+    for (i = 0; i < arr.length(); ++i) {
+        cout << "index " << i << " value " << arr[i] << endl;
     }
     
-
     return  0;
 }
+
 

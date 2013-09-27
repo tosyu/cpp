@@ -2,51 +2,97 @@
 #define _DYNAMIC_ARRAY_H_
 
 #include <stddef.h>
+#include <iostream>
+
+using namespace std;
 
 template <class T>
 class DynamicArray {
-	T* data;
-	int len;
-	int rlen;
+	private:
+		class Node {
+			private:
+				T data;
+			public:
+				T& operator = (const T &value) {
+					data = value;
+					return data;
+				};			
+				friend std::ostream& operator << (std::ostream& out, const Node& n) {
+					return out << n.data;
+				};
+		};
+		Node* data;
+		int realDataLength;
+		int dataLength;
+		int overflowSize;
 	public:
 		DynamicArray() {
 			data = NULL;
-			len = 0;
-			rlen = 0;
-		};		
-		DynamicArray(T* initialArr, int initialLength) {
+			dataLength = 1;
+			realDataLength = 0;
+			Node tmp;
+			tmp = 0;
+			overflowSize = 4;
+		};			
+		DynamicArray(T* inputArray, int inputLength) {
+			dataLength = inputLength;
+			realDataLength = inputLength + overflowSize;
+			data = new Node[realDataLength];
+
 			int i;
-			data = new T[initialLength];
-			for (i = 0; i < initialLength; ++i) {
-				this[i] = initialArr[i];
+			for (i = 0; i < dataLength; ++i) {
+				data[i] = inputArray[i];
 			}
-			len = initialLength;
-			rlen = initialLength + 16;
+
+			overflowSize = sizeof(data[0]);
 		};
 		~DynamicArray() {
 			delete[] data;
 		};
-		T& operator [] (int index) {
-			T* newData;
-			int i;
-			if (rlen == len || index > len) {
-				if (index > len) {
-					rlen += (index - len);
+		Node& operator [] (int index) {
+			if (index > dataLength - 1) {
+				if (index > realDataLength) {
+					realDataLength = index + overflowSize;
+					Node* newData = new Node[realDataLength];
+					int i;
+					for (i = 0; i < dataLength; ++i) {
+						newData[i] = data[i];
+					}
+					delete[] data;
+					data = newData;
 				}
-				rlen += 16;
-				
-				newData = new T[rlen];
-				for (i = 0; i < len; ++i) {
+				dataLength = index + 1;
+			}
+
+			return data[index];
+		};		
+		bool remove (int index) {
+			int maxIndex = dataLength - 1;
+			if (index > maxIndex) {
+				return false;
+			}
+
+			--dataLength;
+			--realDataLength;
+			if (index == maxIndex) {
+				data[index] = Node();
+				return true;
+			}
+
+			int i;
+			Node* newData = new Node[realDataLength];			
+			for(i = 0; i < realDataLength; ++i) {
+				if (i != index) {
 					newData[i] = data[i];
 				}
-				delete[] data;
-				data = newData;
 			}
-				
-			return &(*data[index]);
-		};
+			delete[] data;
+			data = newData;
+		
+			return true;
+		}
 		int length() {
-			return len;
+			return dataLength;
 		};
 };
 
