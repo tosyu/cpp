@@ -4,8 +4,6 @@
 #include <stddef.h>
 #include <iostream>
 
-using namespace std;
-
 template <class T>
 class DynamicArray {
 	private:
@@ -28,14 +26,13 @@ class DynamicArray {
 	public:
 		DynamicArray() {
 			data = NULL;
-			dataLength = 1;
+			dataLength = 0;
 			realDataLength = 0;
-			Node tmp;
-			tmp = 0;
-			overflowSize = 4;
+			overflowSize = sizeof(T) * 4;
 		};			
 		DynamicArray(T* inputArray, int inputLength) {
 			dataLength = inputLength;
+			overflowSize = sizeof(T) * 4;
 			realDataLength = inputLength + overflowSize;
 			data = new Node[realDataLength];
 
@@ -43,15 +40,13 @@ class DynamicArray {
 			for (i = 0; i < dataLength; ++i) {
 				data[i] = inputArray[i];
 			}
-
-			overflowSize = sizeof(data[0]);
 		};
 		~DynamicArray() {
 			delete[] data;
 		};
 		Node& operator [] (int index) {
 			if (index > dataLength - 1) {
-				if (index > realDataLength) {
+				if (index >= realDataLength) {
 					realDataLength = index + overflowSize;
 					Node* newData = new Node[realDataLength];
 					int i;
@@ -80,10 +75,11 @@ class DynamicArray {
 			}
 
 			int i;
+			int j = 0;
 			Node* newData = new Node[realDataLength];			
 			for(i = 0; i < realDataLength; ++i) {
 				if (i != index) {
-					newData[i] = data[i];
+					newData[j++] = data[i];
 				}
 			}
 			delete[] data;

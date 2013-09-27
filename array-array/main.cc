@@ -5,12 +5,13 @@ using namespace std;
 
 int main() {
 
-    int start[3] = {1, 2, 3};// = DynamicArray<int>();
-    DynamicArray<int> arr = DynamicArray<int>(start, 3);
+    DynamicArray<int> arr = DynamicArray<int>();
 
     int i;
 
-    for (i = 0; i < 3; ++i) {
+    cout << "printing the array, length " << arr.length() << endl;
+    
+    for (i = 0; i < arr.length(); ++i) {
         cout << "index " << i << " value " << arr[i] << endl;
     }
 
@@ -18,10 +19,12 @@ int main() {
 
     for (i = 0; i < 10; ++i) {
         arr[i] = (i + 1);
-        cout << "changing index " << i << ", length is: " << arr.length() << endl;
+        cout << "changing index " << i << " to value " << arr[i] << " length is: " << arr.length() << endl;
     }
 
-    for (i = 0; i < 3; ++i) {
+    cout << "printing the array, length " << arr.length() << endl;
+
+    for (i = 0; i < arr.length(); ++i) {
         cout << "index " << i << " value " << arr[i] << endl;
     }
 
@@ -29,6 +32,8 @@ int main() {
     arr.remove(0);
     arr.remove(4);
 
+    cout << "printing the array, length " << arr.length() << endl;
+    
     for (i = 0; i < arr.length(); ++i) {
         cout << "index " << i << " value " << arr[i] << endl;
     }
